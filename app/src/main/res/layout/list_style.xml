@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/wifiname"
+        android:layout_width="370dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:background="#000"
+        android:text=""
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+</LinearLayout>
