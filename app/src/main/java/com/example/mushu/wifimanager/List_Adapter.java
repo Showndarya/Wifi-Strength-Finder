@@ -33,10 +33,10 @@ public class List_Adapter extends ArrayAdapter<String> {
         TextView wifiProvider = convertView.findViewById(R.id.wifiname);
         //Log.i("inadapter",wifinames.get(position).toString());
 
-        if(wifinames.get(position).contains("Excellent")) wifiProvider.setBackgroundColor(Color.rgb(35, 155, 86  ));
-        else if(wifinames.get(position).contains("Good")) wifiProvider.setBackgroundColor(Color.rgb(212, 172, 13 ));
-        else if(wifinames.get(position).contains("Fair")) wifiProvider.setBackgroundColor(Color.rgb(186, 74, 0 ));
-        else if(wifinames.get(position).contains("Poor")) wifiProvider.setBackgroundColor(Color.rgb(169, 50, 38  ));
+        if(wifinames.get(position).contains("Excellent")) wifiProvider.setBackgroundColor(Color.rgb(171, 235, 198 ));
+        else if(wifinames.get(position).contains("Good")) wifiProvider.setBackgroundColor(Color.rgb(247, 220, 111   ));
+        else if(wifinames.get(position).contains("Fair")) wifiProvider.setBackgroundColor(Color.rgb(237, 187, 153 ));
+        else if(wifinames.get(position).contains("Poor")) wifiProvider.setBackgroundColor(Color.rgb(241, 148, 138  ));
 
         wifiProvider.setText(wifinames.get(position));
         return convertView;

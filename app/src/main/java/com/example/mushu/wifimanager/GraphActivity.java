@@ -36,7 +36,7 @@ public class GraphActivity extends AppCompatActivity {
         ArrayList<String> y = getIntent().getStringArrayListExtra("y");
 
         GraphView gv  = findViewById(R.id.graph);
-        gv.setBackgroundColor(Color.rgb(33, 47, 61));
+        gv.setBackgroundColor(Color.rgb(23, 32, 42));
 
         gv.removeAllSeries();
 
@@ -53,7 +53,7 @@ public class GraphActivity extends AppCompatActivity {
         bar.setValueDependentColor(new ValueDependentColor<DataPoint>() {
             @Override
             public int get(DataPoint data) {
-                return Color.rgb(11, 83, 69);
+                return Color.rgb(118, 215, 196);
             }
         });
 
