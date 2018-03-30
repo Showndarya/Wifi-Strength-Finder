@@ -31,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
     WifiManager wm;
     WifiReceiver wr;
     ToggleButton toggle;
+    Button graph;
     List<ScanResult> wl;
-    List<String> listOfProvider;
+    ArrayList<String> listOfProvider,x,y;
     List_Adapter adapter;
     ListView lp;
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
             toggle.setText("OFF");
             toggle.setBackgroundColor(Color.rgb(241, 148, 138));
             if(!listOfProvider.isEmpty()) listOfProvider.clear();
+            if(!x.isEmpty()) x.clear();
+            if(!y.isEmpty()) y.clear();
         }
         else
         {
@@ -71,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
     //start scan
     public void scanning()
     {
-        wr = new WifiReceiver();
-        registerReceiver(wr,new IntentFilter(wm.SCAN_RESULTS_AVAILABLE_ACTION));
-        wm.startScan();
+            wr = new WifiReceiver();
+            registerReceiver(wr, new IntentFilter(wm.SCAN_RESULTS_AVAILABLE_ACTION));
+            wm.startScan();
     }
     //display keywords based on DBm strength
     public String returnlevel(int DBm)
@@ -100,8 +103,11 @@ public class MainActivity extends AppCompatActivity {
         view.setBackgroundColor(Color.rgb(189, 195, 199));
 
         toggle = findViewById(R.id.wifitoggle);
+        graph = findViewById(R.id.viewGraph);
         wm = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         listOfProvider = new ArrayList<>();
+        x = new ArrayList<>();
+        y = new ArrayList<>();
         lp = findViewById(R.id.list_view_wifi);
         wifitoggle(wm,toggle);
 
@@ -111,6 +117,17 @@ public class MainActivity extends AppCompatActivity {
                 wifitoggle(wm,toggle);
             }
         });
+        graph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,GraphActivity.class);
+                i.putStringArrayListExtra("x",x);
+                i.putStringArrayListExtra("y",y);
+                Log.i("click","click");
+                startActivity(i);
+            }
+        });
+
     }
 
     class WifiReceiver extends BroadcastReceiver{
@@ -126,6 +143,9 @@ public class MainActivity extends AppCompatActivity {
 
             // refresh list
             if(!listOfProvider.isEmpty()) listOfProvider.clear();
+            if(!x.isEmpty()) x.clear();
+            if(!y.isEmpty()) y.clear();
+
             String providerName;
             //Log.i("Size",Integer.toString(wl.size()));
 
@@ -133,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < wl.size(); i++) {
                 providerName = "Name: "+(wl.get(i).SSID)+"\nBSSID: "+(wl.get(i).BSSID)+"\n Frequency: "+(wl.get(i).frequency)+"\n Level: "+returnlevel(wl.get(i).level);
                 listOfProvider.add(providerName);
+                x.add((wl.get(i).SSID));
+                y.add(Integer.toString(wl.get(i).level));
                 Log.i("pn",providerName);
             }
             //Log.i("in","adpaterset");
