@@ -4,7 +4,7 @@
 
 
 
-![Travis-ci](https://travis-ci.com/Showndarya/Wifi-Strength-Finder.svg?token=J2kV2bU16arvb5GboaQv&branch=master)          ![Java](https://forthebadge.com/images/badges/made-with-java.svg) ![Android](https://forthebadge.com/images/badges/built-for-android.svg) 
+![Travis-ci](https://travis-ci.com/Showndarya/Wifi-Strength-Finder.svg?token=J2kV2bU16arvb5GboaQv&branch=master) ![Java](https://forthebadge.com/images/badges/made-with-java.svg) ![Android](https://forthebadge.com/images/badges/built-for-android.svg) 
 
 > Android application for MCAN mini project
 
