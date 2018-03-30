@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Formatter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -87,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
     //display keywords based on DBm strength
     public String returnlevel(int DBm)
     {
-        if(DBm >= -50) return DBm+" - Excellent";
-        else if (DBm < -50 && DBm >= -60) return DBm+" - Good";
-        else if (DBm < -60 && DBm >= -70) return DBm+" - Fair";
-        else return DBm+" - Poor";
+        if(DBm >= -50) return DBm+" dBm > Excellent";
+        else if (DBm < -50 && DBm >= -60) return DBm+" dBm > Good";
+        else if (DBm < -60 && DBm >= -70) return DBm+" dBm > Fair";
+        else return DBm+" dBm > Poor";
     }
     // comparator for sort
     public static Comparator<ScanResult> sortcomp = new Comparator<ScanResult>() {
@@ -147,12 +148,13 @@ public class MainActivity extends AppCompatActivity {
 
             WifiInfo info = wm.getConnectionInfo();
             if(info.getSSID() != null) conn.setText(info.getSSID());
-            final String ip = Integer.toString(info.getIpAddress());
+            final String ip = (info.getIpAddress() & 0xff)+"."+(info.getIpAddress() >> 8 & 0xff)+"."+(info.getIpAddress() >> 16 & 0xff)+"."+(info.getIpAddress() >> 24 & 0xff);
             final String ls = Integer.toString(info.getLinkSpeed());
+            final String ss = Integer.toString(info.getRssi());
             conn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(),"IP Address: "+ip+"\n Link Speed: "+ls,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext()," IP Address: "+ip+"\n Link Speed: "+ls+" Mbps\n Signal Strength: "+ss+" dBm" ,Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -169,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
             // print details
             for (int i = 0; i < wl.size(); i++) {
-                providerName = "Name: "+(wl.get(i).SSID)+"\nBSSID: "+(wl.get(i).BSSID)+"\n Frequency: "+(wl.get(i).frequency)+"\n Level: "+returnlevel(wl.get(i).level);
+                providerName = " Name: "+(wl.get(i).SSID)+"\n BSSID: "+(wl.get(i).BSSID)+"\n Frequency: "+(wl.get(i).frequency)+" MHz\n Strength: "+returnlevel(wl.get(i).level);
                 listOfProvider.add(providerName);
                 x.add((wl.get(i).SSID));
                 y.add(Integer.toString(wl.get(i).level));
