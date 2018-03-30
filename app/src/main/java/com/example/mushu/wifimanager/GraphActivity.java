@@ -49,6 +49,7 @@ public class GraphActivity extends AppCompatActivity {
         }
 
         BarGraphSeries<DataPoint> bar = new BarGraphSeries<>(values);
+        gv.addSeries(bar);
         bar.setValueDependentColor(new ValueDependentColor<DataPoint>() {
             @Override
             public int get(DataPoint data) {
@@ -58,7 +59,7 @@ public class GraphActivity extends AppCompatActivity {
 
         bar.setSpacing(20);
 
-        gv.addSeries(bar);
+
 
         StaticLabelsFormatter lab = new StaticLabelsFormatter(gv);
         //String []ylab = y.toArray(new String[y.size()]);
@@ -67,8 +68,6 @@ public class GraphActivity extends AppCompatActivity {
         lab.setHorizontalLabels(xlab);
         gv.getGridLabelRenderer().setLabelFormatter(lab);
         gv.getGridLabelRenderer().setGridColor(Color.rgb(171, 178, 185));
-        gv.getViewport().setScrollable(true);
-        gv.getViewport().setScalableY(false);
     }
 
 }

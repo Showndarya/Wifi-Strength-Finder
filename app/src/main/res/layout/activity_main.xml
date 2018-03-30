@@ -27,8 +27,16 @@
         android:id="@+id/viewGraph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/list_view_wifi"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/wifitoggle"
-        android:layout_marginEnd="26dp"
+        android:layout_marginEnd="18dp"
         android:text="View Graph" />
+
+    <Button
+        android:id="@+id/conn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/list_view_wifi"
+        android:layout_toStartOf="@+id/viewGraph"
+        android:text="No Wifi" />
 </RelativeLayout>

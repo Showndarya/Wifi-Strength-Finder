@@ -3,16 +3,22 @@ package com.example.mushu.wifimanager;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.webkit.PermissionRequest;
 import android.widget.Button;
@@ -31,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     WifiManager wm;
     WifiReceiver wr;
     ToggleButton toggle;
-    Button graph;
+    Button graph,conn;
     List<ScanResult> wl;
     ArrayList<String> listOfProvider,x,y;
     List_Adapter adapter;
@@ -55,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             toggle.setText("ON");
             toggle.setBackgroundColor(Color.rgb(130, 224, 170));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(getApplicationContext(),"Give Location permission to this application",Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),"Give Location permission to this application",Toast.LENGTH_SHORT).show();
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
             }
             else{
@@ -104,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         toggle = findViewById(R.id.wifitoggle);
         graph = findViewById(R.id.viewGraph);
+        conn = findViewById(R.id.conn);
         wm = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         listOfProvider = new ArrayList<>();
         x = new ArrayList<>();
@@ -137,6 +144,17 @@ public class MainActivity extends AppCompatActivity {
 
             //get the results
             wl = wm.getScanResults();
+
+            WifiInfo info = wm.getConnectionInfo();
+            if(info.getSSID() != null) conn.setText(info.getSSID());
+            final String ip = Integer.toString(info.getIpAddress());
+            final String ls = Integer.toString(info.getLinkSpeed());
+            conn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(),"IP Address: "+ip+"\n Link Speed: "+ls,Toast.LENGTH_SHORT).show();
+                }
+            });
 
             // sort on the basis of DBm strength in level attribute
             Collections.sort(wl, sortcomp);
