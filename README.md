@@ -2,7 +2,9 @@
 <img style="vertical-align:middle" width="75" height="75" src="https://user-images.githubusercontent.com/25130101/38110263-9d836666-33b8-11e8-9902-7940c4cf9469.png"/>   Wifi Strength Finder
 </h1>
 
-![Travis-ci](https://travis-ci.com/Showndarya/Wifi-Strength-Finder.svg?token=J2kV2bU16arvb5GboaQv&branch=master)
+
+
+![Travis-ci](https://travis-ci.com/Showndarya/Wifi-Strength-Finder.svg?token=J2kV2bU16arvb5GboaQv&branch=master)          ![Java](https://forthebadge.com/images/badges/made-with-java.svg) ![Android](https://forthebadge.com/images/badges/built-for-android.svg) 
 
 > Android application for MCAN mini project
 
