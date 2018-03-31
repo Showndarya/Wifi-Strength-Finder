@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     WifiManager wm;
     WifiReceiver wr;
-    ToggleButton toggle;
-    Button graph,conn;
+    Button graph,conn,toggle;
     List<ScanResult> wl;
     ArrayList<String> listOfProvider,x,y;
     List_Adapter adapter;
@@ -70,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
     //start scanning once permission is granted
     @Override
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(Color.rgb(189, 195, 199));
+        view.setBackgroundColor(Color.rgb(248, 249, 249));
 
         toggle = findViewById(R.id.wifitoggle);
         graph = findViewById(R.id.viewGraph);
@@ -145,19 +145,20 @@ public class MainActivity extends AppCompatActivity {
 
             //get the results
             wl = wm.getScanResults();
-
-            WifiInfo info = wm.getConnectionInfo();
-            if(info.getSSID() != null) conn.setText(info.getSSID());
-            final String ip = (info.getIpAddress() & 0xff)+"."+(info.getIpAddress() >> 8 & 0xff)+"."+(info.getIpAddress() >> 16 & 0xff)+"."+(info.getIpAddress() >> 24 & 0xff);
-            final String ls = Integer.toString(info.getLinkSpeed());
-            final String ss = Integer.toString(info.getRssi());
-            conn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getApplicationContext()," IP Address: "+ip+"\n Link Speed: "+ls+" Mbps\n Signal Strength: "+ss+" dBm" ,Toast.LENGTH_SHORT).show();
-                }
-            });
-
+            if(wm.isWifiEnabled()==true) {
+                WifiInfo info = wm.getConnectionInfo();
+                String ssid = info.getSSID();
+                if (info.getSSID() != null) conn.setText(ssid);
+                final String ip = (info.getIpAddress() & 0xff) + "." + (info.getIpAddress() >> 8 & 0xff) + "." + (info.getIpAddress() >> 16 & 0xff) + "." + (info.getIpAddress() >> 24 & 0xff);
+                final String ls = Integer.toString(info.getLinkSpeed());
+                final String ss = Integer.toString(info.getRssi());
+                conn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getApplicationContext(), " IP Address: " + ip + "\n Link Speed: " + ls + " Mbps\n Signal Strength: " + ss + " dBm", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
             // sort on the basis of DBm strength in level attribute
             Collections.sort(wl, sortcomp);
 
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
             // print details
             for (int i = 0; i < wl.size(); i++) {
-                providerName = " Name: "+(wl.get(i).SSID)+"\n BSSID: "+(wl.get(i).BSSID)+"\n Frequency: "+(wl.get(i).frequency)+" MHz\n Strength: "+returnlevel(wl.get(i).level);
+                providerName = " "+(wl.get(i).SSID)+" ("+(wl.get(i).BSSID)+" )\n Frequency: "+(wl.get(i).frequency)+" MHz\n Strength: "+returnlevel(wl.get(i).level);
                 listOfProvider.add(providerName);
                 x.add((wl.get(i).SSID));
                 y.add(Integer.toString(wl.get(i).level));

@@ -30,13 +30,13 @@ public class GraphActivity extends AppCompatActivity {
 
         Log.i("in","Graph");
         View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(Color.rgb(44, 62, 80));
+        view.setBackgroundColor(Color.rgb(255,255,255));
 
         ArrayList<String> x = getIntent().getStringArrayListExtra("x");
         ArrayList<String> y = getIntent().getStringArrayListExtra("y");
 
         GraphView gv  = findViewById(R.id.graph);
-        gv.setBackgroundColor(Color.rgb(23, 32, 42));
+        gv.setBackgroundColor(Color.rgb(255,255,255));
 
         gv.removeAllSeries();
 
@@ -67,7 +67,7 @@ public class GraphActivity extends AppCompatActivity {
         String []xlab = x.toArray(new String[x.size()]);
         lab.setHorizontalLabels(xlab);
         gv.getGridLabelRenderer().setLabelFormatter(lab);
-        gv.getGridLabelRenderer().setGridColor(Color.rgb(171, 178, 185));
+        gv.getGridLabelRenderer().setGridColor(Color.rgb(0,0,0));
     }
 
 }
